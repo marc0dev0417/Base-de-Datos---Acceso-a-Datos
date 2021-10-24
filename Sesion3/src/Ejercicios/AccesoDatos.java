@@ -7,8 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 
-
-
 public class AccesoDatos {
 
 	private static String driver = "com.mysql.cj.jdbc.Driver";
@@ -70,10 +68,10 @@ public class AccesoDatos {
 			ResultSet resultado = llamada.executeQuery();
 			noExiste = resultado.next();
 			if(!noExiste) {
-				System.out.println("La categoria: "+categoria+" o no existe o no tiene productos bajo mínimos");
+				System.out.println("La categoria: "+categoria+" o no existe o no tiene productos bajo mÃ­nimos");
 				
 			}else {
-				System.out.println("Nombre Producto - Precio - Existencias - Mínimo");
+				System.out.println("Nombre Producto - Precio - Existencias - MÃ­nimo");
 				System.out.println("-------------------------------------------------");
 				System.out.println(resultado.getString(1)+" "+resultado.getDouble(2)+" "+resultado.getInt(3)+" "+resultado.getInt(4));
 				while(resultado.next()) {
@@ -96,10 +94,8 @@ public class AccesoDatos {
 			llamada.execute();
 			
 			resultado = llamada.getInt(3);
-			
-			
+		
 			return resultado;
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
