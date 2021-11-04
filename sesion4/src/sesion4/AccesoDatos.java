@@ -49,7 +49,6 @@ public class AccesoDatos {
 			preparacion.setDouble(1, porcentaje);
 			preparacion.setInt(2, departamento);
 			
-			
 			devolveme = preparacion.executeUpdate();
 			System.out.println("entra");
 			conecta.commit();
