@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 11 nov 2021 10:31:56 by Hibernate Tools 5.4.32.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+    <class catalog="nba" dynamic-insert="false" dynamic-update="false" mutable="true" name="primero.Jugadores" optimistic-lock="none" polymorphism="implicit" select-before-update="false" table="jugadores">
+        <id name="codigo" type="int">
+            <column name="codigo"/>
+            <generator class="assigned"/>
+        </id>
+        <many-to-one class="primero.Equipos" embed-xml="true" fetch="select" insert="true" name="equipos" not-found="exception" optimistic-lock="true" unique="false" update="true">
+            <column length="20" name="Nombre_equipo"/>
+        </many-to-one>
+        <property generated="never" lazy="false" name="nombre" optimistic-lock="true" type="string" unique="false">
+            <column length="30" name="Nombre"/>
+        </property>
+        <property generated="never" lazy="false" name="procedencia" optimistic-lock="true" type="string" unique="false">
+            <column length="20" name="Procedencia"/>
+        </property>
+        <property generated="never" lazy="false" name="altura" optimistic-lock="true" type="string" unique="false">
+            <column length="4" name="Altura"/>
+        </property>
+        <property generated="never" lazy="false" name="peso" optimistic-lock="true" type="java.lang.Integer" unique="false">
+            <column name="Peso"/>
+        </property>
+        <property generated="never" lazy="false" name="posicion" optimistic-lock="true" type="string" unique="false">
+            <column length="12" name="Posicion"/>
+        </property>
+        <set embed-xml="true" fetch="select" inverse="true" lazy="true" mutable="true" name="estadisticases" optimistic-lock="true" sort="unsorted" table="estadisticas">
+            <key on-delete="noaction">
+                <column name="jugador" not-null="true"/>
+            </key>
+            <one-to-many class="primero.Estadisticas" embed-xml="true" not-found="exception"/>
+        </set>
+    </class>
+</hibernate-mapping>

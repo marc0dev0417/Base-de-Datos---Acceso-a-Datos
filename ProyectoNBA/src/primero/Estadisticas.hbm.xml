@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 11 nov 2021 10:31:56 by Hibernate Tools 5.4.32.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+    <class catalog="nba" dynamic-insert="false" dynamic-update="false" mutable="true" name="primero.Estadisticas" optimistic-lock="none" polymorphism="implicit" select-before-update="false" table="estadisticas">
+        <composite-id class="primero.EstadisticasId" mapped="false" name="id" unsaved-value="undefined">
+            <key-property name="temporada" type="string">
+                <column length="5" name="temporada"/>
+            </key-property>
+            <key-property name="jugador" type="int">
+                <column name="jugador"/>
+            </key-property>
+        </composite-id>
+        <many-to-one class="primero.Jugadores" embed-xml="true" fetch="select" insert="false" name="jugadores" not-found="exception" optimistic-lock="true" unique="false" update="false">
+            <column name="jugador" not-null="true"/>
+        </many-to-one>
+        <property generated="never" lazy="false" name="puntosPorPartido" optimistic-lock="true" type="java.lang.Float" unique="false">
+            <column name="Puntos_por_partido" precision="12" scale="0"/>
+        </property>
+        <property generated="never" lazy="false" name="asistenciasPorPartido" optimistic-lock="true" type="java.lang.Float" unique="false">
+            <column name="Asistencias_por_partido" precision="12" scale="0"/>
+        </property>
+        <property generated="never" lazy="false" name="taponesPorPartido" optimistic-lock="true" type="java.lang.Float" unique="false">
+            <column name="Tapones_por_partido" precision="12" scale="0"/>
+        </property>
+        <property generated="never" lazy="false" name="rebotesPorPartido" optimistic-lock="true" type="java.lang.Float" unique="false">
+            <column name="Rebotes_por_partido" precision="12" scale="0"/>
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 11 nov 2021 8:59:36 by Hibernate Tools 5.4.32.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+    <class catalog="ejemplo2" dynamic-insert="false" dynamic-update="false" mutable="true" name="primero.Empleados" optimistic-lock="none" polymorphism="implicit" select-before-update="false" table="empleados">
+        <id name="empNo" type="short">
+            <column name="emp_no"/>
+            <generator class="assigned"/>
+        </id>
+        <many-to-one class="primero.Departamentos" embed-xml="true" fetch="select" insert="true" name="departamentos" not-found="exception" optimistic-lock="true" unique="false" update="true">
+            <column name="dept_no"/>
+        </many-to-one>
+        <property generated="never" lazy="false" name="apellido" optimistic-lock="true" type="string" unique="false">
+            <column length="10" name="apellido"/>
+        </property>
+        <property generated="never" lazy="false" name="oficio" optimistic-lock="true" type="string" unique="false">
+            <column length="10" name="oficio"/>
+        </property>
+        <property generated="never" lazy="false" name="dir" optimistic-lock="true" type="java.lang.Short" unique="false">
+            <column name="dir"/>
+        </property>
+        <property generated="never" lazy="false" name="fechaAlt" optimistic-lock="true" type="date" unique="false">
+            <column length="10" name="fecha_alt"/>
+        </property>
+        <property generated="never" lazy="false" name="salario" optimistic-lock="true" type="java.lang.Float" unique="false">
+            <column name="salario" precision="6"/>
+        </property>
+        <property generated="never" lazy="false" name="comision" optimistic-lock="true" type="java.lang.Float" unique="false">
+            <column name="comision" precision="6"/>
+        </property>
+    </class>
+</hibernate-mapping>

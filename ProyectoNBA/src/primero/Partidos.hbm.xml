@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 11 nov 2021 10:31:56 by Hibernate Tools 5.4.32.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+    <class catalog="nba" dynamic-insert="false" dynamic-update="false" mutable="true" name="primero.Partidos" optimistic-lock="none" polymorphism="implicit" select-before-update="false" table="partidos">
+        <id name="codigo" type="int">
+            <column name="codigo"/>
+            <generator class="assigned"/>
+        </id>
+        <many-to-one class="primero.Equipos" embed-xml="true" fetch="select" insert="true" name="equiposByEquipoVisitante" not-found="exception" optimistic-lock="true" unique="false" update="true">
+            <column length="20" name="equipo_visitante"/>
+        </many-to-one>
+        <many-to-one class="primero.Equipos" embed-xml="true" fetch="select" insert="true" name="equiposByEquipoLocal" not-found="exception" optimistic-lock="true" unique="false" update="true">
+            <column length="20" name="equipo_local"/>
+        </many-to-one>
+        <property generated="never" lazy="false" name="puntosLocal" optimistic-lock="true" type="java.lang.Integer" unique="false">
+            <column name="puntos_local"/>
+        </property>
+        <property generated="never" lazy="false" name="puntosVisitante" optimistic-lock="true" type="java.lang.Integer" unique="false">
+            <column name="puntos_visitante"/>
+        </property>
+        <property generated="never" lazy="false" name="temporada" optimistic-lock="true" type="string" unique="false">
+            <column length="5" name="temporada"/>
+        </property>
+    </class>
+</hibernate-mapping>
