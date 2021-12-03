@@ -43,7 +43,6 @@ public class AplicacionCrud {
 				try {
 					AplicacionCrud window = new AplicacionCrud();
 					window.frame.setVisible(true);
-					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -63,8 +62,6 @@ public class AplicacionCrud {
 		Session session = sesion.openSession();
 		
 		Empleados empleados = new Empleados();
-		
-		
 		
 		comboDirectores.removeAllItems();
 		
@@ -140,13 +137,22 @@ public class AplicacionCrud {
 				
 					try {
 					Empleados empleados = new Empleados();
-					empleados = (Empleados)session.load(Empleados.class, (short) (Short.valueOf(txtNumEmpleado.getText())));
+					String regex = "\\d+";
 					
+					if(!txtNumEmpleado.getText().matches(regex)) {
+						
+						JOptionPane.showMessageDialog(null, "Introduce un numero");
+							return;
+					}
+					Short idEmpleado = Short.valueOf(txtNumEmpleado.getText());
+					empleados = (Empleados)session.load(Empleados.class, (short) idEmpleado);
+					
+		
 					JOptionPane.showMessageDialog(null, "Numero Empleado: "+empleados.getEmpNo()+"\n"+"Apellido: "+empleados.getApellido()+"\n"+"Oficio: "+empleados.getOficio());
 						}catch(ObjectNotFoundException error) {
 							JOptionPane.showMessageDialog(null, "No existe el empleado");
 						}catch(NumberFormatException error) {
-							
+							JOptionPane.showMessageDialog(null, "Debe insertar algo en el campo");
 						}
 					}
 			}
@@ -164,6 +170,18 @@ public class AplicacionCrud {
 		frame.getContentPane().add(btnSalir);
 		
 		JButton btnLimpiar = new JButton("Limpiar");
+		btnLimpiar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() != null) {
+					txtNumEmpleado.setText("");
+					txtApellido.setText("");
+					txtComision.setText("");
+					txtOficio.setText("");
+					txtSalario.setText("");
+					textFechaAlta.setText("");
+				}
+			}
+		});
 		btnLimpiar.setBounds(201, 267, 89, 23);
 		frame.getContentPane().add(btnLimpiar);
 		
@@ -220,10 +238,14 @@ public class AplicacionCrud {
 					departamento.setDeptNo((byte)Byte.valueOf(dividirNumeroDepartamento[0]));
 					
 					empleado.setDepartamentos(departamento);
+					
+					if(txtApellido.getText().equals(null)) {
+						JOptionPane.showMessageDialog(null, "No hay valores");
+					}
 					try {
 					empleado.setFechaAlt(Date.valueOf(textFechaAlta.getText()));
 					}catch(IllegalArgumentException fecha) {
-						System.out.println("Fecha mal introducida");
+						JOptionPane.showMessageDialog(comboDepartamentos, "Formato de fecha mal introducida");
 					}
 					session.save(empleado);
 					cargarDirectores();
@@ -309,7 +331,6 @@ public class AplicacionCrud {
 					em.setApellido(txtApellido.getText());
 					em.setOficio(txtOficio.getText());
 					
-					
 					float NuevoSalario = Float.valueOf(txtSalario.getText());
 					em.setSalario(NuevoSalario);
 					
@@ -319,15 +340,13 @@ public class AplicacionCrud {
 					
 					Departamentos dep = (Departamentos) session.get(Departamentos.class, (byte) Byte.valueOf(dividirNumeroDepartamento[0]));
 					if (dep == null) {
-						System.out.println("El departamento no existe");
+						JOptionPane.showMessageDialog(null, "No existe el departamento");
 					} else {
 						em.setDepartamentos(dep);
-						
 						session.update(em); // modifica el objeto
 						tx.commit();
 						cargarDirectores();
 					}
-
 				} catch (ObjectNotFoundException o) {
 					JOptionPane.showMessageDialog(null, "No existe el empleado");
 				} catch (ConstraintViolationException c) {
@@ -337,7 +356,6 @@ public class AplicacionCrud {
 					e.printStackTrace();
 				}
 				session.close();
-				
 			}
 		});
 		btnActualizar.setBounds(298, 233, 89, 23);
