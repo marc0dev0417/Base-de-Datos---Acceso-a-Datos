@@ -7,6 +7,13 @@ package primero;
 public class Estadisticas implements java.io.Serializable {
 
 	private EstadisticasId id;
+	@Override
+	public String toString() {
+		return "Estadisticas [jugadores=" + jugadores.getNombre() + ", puntosPorPartido=" + puntosPorPartido
+				+ ", asistenciasPorPartido=" + asistenciasPorPartido + ", taponesPorPartido=" + taponesPorPartido
+				+ ", rebotesPorPartido=" + rebotesPorPartido + "]";
+	}
+
 	private Jugadores jugadores;
 	private Float puntosPorPartido;
 	private Float asistenciasPorPartido;
@@ -78,5 +85,4 @@ public class Estadisticas implements java.io.Serializable {
 	public void setRebotesPorPartido(Float rebotesPorPartido) {
 		this.rebotesPorPartido = rebotesPorPartido;
 	}
-
 }
