@@ -220,5 +220,83 @@ public class BaseDatos {
 			}
 		}
 	}
-	//Me haran falta transacciones... 
+	//Me haran falta transacciones...
+	public int incrementarSalario(int salario) {
+		
+		em.getTransaction().begin();
+		Query actualizar = em.createQuery("update EmpleadoEntity e set e.salario = e.salario + :salario");
+		//formula => 200*(1+(10/100))
+
+		actualizar.setParameter("salario", salario);
+	
+		int filasActualizadas = actualizar.executeUpdate();
+		em.getTransaction().commit();
+		
+		return filasActualizadas;
+	}
+	public int incrementarSalarioPorOficio(String oficio, int cantidad) {
+		em.getTransaction().begin();
+		Query actualizar = em.createQuery("update EmpleadoEntity e set e.salario = e.salario + :cantidad where e.oficio = :oficio");
+		
+		oficio = String.valueOf(oficio.charAt(0)).toUpperCase()+oficio.substring(1);
+		
+		actualizar.setParameter("cantidad", cantidad);
+		actualizar.setParameter("oficio", oficio);
+		
+		int filasActualizadas = actualizar.executeUpdate();
+		
+		em.getTransaction().commit();
+		
+		return filasActualizadas;
+	}
+	public int incrementarSalarioDepartamento(int noDept, int cantidad) {
+		em.getTransaction().begin();
+		Query actualizar = em.createQuery("update EmpleadoEntity e set e.salario = e.salario + :cantidad where e.departamento.getDptoId() = :noDept");
+		
+		actualizar.setParameter("cantidad", cantidad);
+		actualizar.setParameter("noDept", noDept);
+		
+		int filasActualizadas = actualizar.executeUpdate();
+		
+		em.getTransaction().commit();
+		
+		return filasActualizadas;
+	}
+	public int borrarEmpleado(int numeroEmpleado) {
+		em.getTransaction().begin();
+		Query consulta = em.createQuery("delete from EmpleadoEntity e where e.empnoId = :numeroEmpleado");
+		
+		consulta.setParameter("numeroEmpleado", numeroEmpleado);
+		
+		int filasBorradas = consulta.executeUpdate();
+		
+		em.getTransaction().commit();
+		
+		return filasBorradas;
+	}
+	public int borrarDepartamento(int numeroDepartamento) {
+		
+		em.getTransaction().begin();
+		Query borrar = em.createQuery("delete from DepartamentoEntity d where d.dptoId = :numeroDepartamento");
+		
+		borrar.setParameter("numeroDepartamento", numeroDepartamento);
+		
+		int filasBorradas = borrar.executeUpdate();
+		
+		em.getTransaction().commit();
+		
+		return filasBorradas;
+	}
+	public void consultaEmpleadoBorrado(int numeroEmpleado) {
+		Query c = em.createQuery("select e from EmpleadoEntity e where e.empnoId = :numeroEmpleado");
+		c.setParameter("numeroEmpleado", numeroEmpleado);
+		
+		List<EmpleadoEntity> lista = c.getResultList();
+		
+		if(lista.isEmpty()) {
+			System.out.println("No existe el empleado");
+		}else {
+		System.out.println(lista.get(0).getNombre());
+		}
+	}
 }
